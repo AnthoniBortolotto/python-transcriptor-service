@@ -21,4 +21,5 @@ async def get_subtitles(id: str, lang: str = "en"):
         file += "{}\n".format(i['text'])
 
     # return the content of the file as a streaming response
-    return StreamingResponse(iter([file]), media_type="text/plain")
+    return {"transcription": file}
+    #return StreamingResponse(iter([file]), media_type="text/plain")
