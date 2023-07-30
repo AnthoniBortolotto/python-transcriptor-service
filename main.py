@@ -19,7 +19,7 @@ async def get_subtitles(id: str, lang: str = "en"):
         # iterating through each element of list srt
         for i in srt:
             # writing each element of srt on a new line
-            file += "{}\n".format(i['text'])
+            file += "{} \n ".format(i['text'])
 
         # return the content of the file as a streaming response
         return {"transcription": file}
