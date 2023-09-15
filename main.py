@@ -26,4 +26,4 @@ async def get_subtitles(id: str, lang: str = "en"):
         return {"transcription": file}
         # return StreamingResponse(iter([file]), media_type="text/plain")
     except:
-        return {"error": "No transcription found in the language " + lang + " please try another language"}
+        return {"error": "No transcription found in the language " + lang + " please try another language or check the video id"}
