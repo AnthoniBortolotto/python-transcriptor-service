@@ -5,6 +5,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 app = FastAPI()
 handler = Mangum(app)
 
+
 @app.get("/{id}")
 async def get_subtitles(id: str, lang: str = "en"):
     # importing modules
@@ -23,9 +24,6 @@ async def get_subtitles(id: str, lang: str = "en"):
 
         # return the content of the file as a streaming response
         return {"transcription": file}
-        #return StreamingResponse(iter([file]), media_type="text/plain")
+        # return StreamingResponse(iter([file]), media_type="text/plain")
     except:
-        return {"error": "No transcription found in the language " + lang + " please try another language"} 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+        return {"error": "No transcription found in the language " + lang + " please try another language"}
