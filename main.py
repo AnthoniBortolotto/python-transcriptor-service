@@ -7,7 +7,7 @@ handler = Mangum(app)
 
 
 @app.get("/{id}")
-async def get_subtitles(id: str, lang: str = "en"):
+async def get_subtitles(id: str, lang: str = "pt"):
     try:
         srt = YouTubeTranscriptApi.get_transcript(id, [lang]) # getting the subtitles of the video
         file = ""
