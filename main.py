@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 from youtube_transcript_api import YouTubeTranscriptApi
 
@@ -19,4 +19,4 @@ async def get_subtitles(id: str, lang: str = "pt"):
         # return the content of the file as a json
         return {"transcription": file}
     except:
-        return {"error": "No transcription found in the language " + lang + " please try another language or check the video id"}
+         raise HTTPException(400, detail="No transcription found in the language " + lang + " please try another language or check the video id")
