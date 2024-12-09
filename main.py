@@ -5,19 +5,14 @@ from youtube_transcript_api import YouTubeTranscriptApi
 app = FastAPI()
 handler = Mangum(app)
 
-
 @app.get("/transcription/text/{id}")
 async def get_subtitles_text(id: str, lang: str = "pt"):
     try:
-        srt = YouTubeTranscriptApi.get_transcript(id, [lang]) # get the subtitles of the video
-
+        transcription = YouTubeTranscriptApi.get_transcript(id, [lang])
         file = ""
-        # iterate through each element of list srt
-        for i in srt:
-            # write each element of srt on a new line
+        for i in transcription:
             file += "{} \n ".format(i['text'])
 
-        # return the content of the file as a json
         return {"transcription": file}
     except Exception as e:
         if e.args[0].find('No transcripts were found for any of the requested language codes') != -1:
@@ -28,12 +23,11 @@ async def get_subtitles_text(id: str, lang: str = "pt"):
 @app.get("/transcription/dialogues/{id}")
 async def get_subtitles_dialogues(id: str, lang: str = "pt"):
     try:
-
-        srt = YouTubeTranscriptApi.get_transcript(id, [lang]) # getting the subtitles of the video
+        transcription = YouTubeTranscriptApi.get_transcript(id, [lang]) 
         JsonResponse = {
             "dialogues": []
         }
-        for i in srt:
+        for i in transcription:
             JsonResponse["dialogues"].append({
                 "start": i['start'],
                 # adding the duration to the start time to get the end time and round it to 2 decimal places
